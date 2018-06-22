@@ -42,7 +42,7 @@ class Table extends Furniture {
     }
 
     draw_seats(seats_number, paper) {
-        // todo: assert that 0 < seats number < 12
+        // assert that 0 < seats number < 12
         let alpha = Math.PI * 2 / seats_number;
         let table = paper.circle(this.x * this.radius,
             this.y * this.radius, this.radius).attr({stroke: "none", fill: this.color, opacity: .4});
