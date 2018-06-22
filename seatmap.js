@@ -8,7 +8,7 @@ window.onload = function () {
     var radius = 10;
 
     // Creates canvas 320 � 200 at 50, 30
-    var paper = Raphael(50, 30, 320, 200);
+    var paper = Raphael(100, 1000, 320, 200);
 
     for (var i = 0; i < seats.length; i++) {
         var seatObj = seats[i];
