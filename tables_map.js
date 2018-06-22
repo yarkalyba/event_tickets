@@ -2,7 +2,7 @@
 // Module representing location of seats and chairs on the map
 
 const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
-const NUM_SEATS_1 = 6, NUM_SEATS_2 = 4;
+const NUM_SEATS_1 = 6, NUM_SEATS_2 = 7;
 const tables_info = {
     "high_class": [PRICE_1, "#FAFF37"],
     "middle_class": [PRICE_2, "#FF7097"],
@@ -49,12 +49,11 @@ class Table extends Furniture {
 
         // radius of first seat is counted as Table.x + 2*Table.radius
         var x = 1.2*this.x;
+
         var y = this.y;
         // identify coordinates for 1 seat and cos for shift
 
         for (let i = 0; i < seats_number; i++) {
-            //alert(x);
-            //alert(y);
             var seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
             var radius_coef = this.radius/seat.radius;
             seat.raphael = paper.circle(seat.x*radius_coef*seat.radius,
@@ -67,7 +66,7 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, color = "#FF0000", radius = 10, status = "available") {
+    constructor(x, y, id, price, color = "#FF0000", radius = 30, status = "available") {
         super(x, y, color, id, radius, status);
         this.price = price;
         this.raphael = null;
@@ -90,9 +89,9 @@ class Seat extends Furniture {
 
 window.onload = function () {
     let tables = [{"x": 10, "y": 10, "class_type": "high_class"},
-        {"x": 20, "y": 10, "class_type": "test_class"},
-        {"x": 10, "y": 20, "class_type": "middle_class"},
-        {"x": 20, "y": 20, "class_type": "low_class"}];  //coordinates of tables
+        {"x": 10, "y": 20, "class_type": "test_class"},
+        {"x": 10, "y": 30, "class_type": "middle_class"},
+        {"x": 10, "y": 40, "class_type": "low_class"}];  //coordinates of tables
 
     // Creates canvas 500 � 500 at 50, 30
     let paper = Raphael(50, 90, 10000, 10000);
@@ -101,6 +100,6 @@ window.onload = function () {
         let info = tables_info[tables[i].class_type];
 
         let table = new Table(tables[i].x, tables[i].y, i+1, tables[i].class_type, info[1]);
-        table.draw_seats(12, paper);
+        table.draw_seats(NUM_SEATS_2, paper);
     }
 };
