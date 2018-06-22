@@ -1,5 +1,5 @@
-// File: seatmap.js
-// Module representing location of seats and chairs on the map
+// File: table_map.js
+// Module representing of seats and chairs on the map
 
 const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
 const NUM_SEATS_1 = 6, NUM_SEATS_2 = 7;
@@ -48,14 +48,14 @@ class Table extends Furniture {
             this.y * this.radius, this.radius).attr({stroke: "none", fill: this.color, opacity: .4});
 
         // radius of first seat is counted as Table.x + 2*Table.radius
-        var x = 1.2*this.x;
+        let x = 1.2 * this.x;
 
-        var y = this.y;
+        let y = this.y;
         // identify coordinates for 1 seat and cos for shift
 
         for (let i = 0; i < seats_number; i++) {
-            var seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
-            var radius_coef = this.radius/seat.radius;
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0]);
+            const radius_coef = this.radius / seat.radius;
             seat.raphael = paper.circle(seat.x*radius_coef*seat.radius,
                 seat.y*radius_coef*seat.radius, seat.radius).attr({stroke: "none", fill: this.color, opacity: .4});
             let points = this.find_point(x, y, alpha);
@@ -78,12 +78,6 @@ class Seat extends Furniture {
 
     mouseout() {
         this.raphael.attr("opacity", .4);
-    }
-
-    click() {
-        {
-        }
-
     }
 }
 
