@@ -1,4 +1,4 @@
-// File: seatmap.js
+// File: tables_map.js
 // Module representing location of seats and chairs on the map
 
 const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
@@ -11,23 +11,18 @@ const tables_info = {
 };
 
 class Furniture {
-    constructor(x, y, color, id, radius, status) {
+    constructor(x, y, color, id, radius) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.id = id;
         this.radius = radius;
-        this._status = status;
-    }
-
-    get status() {
-        return this._status
     }
 }
 
 class Table extends Furniture {
-    constructor(x, y, id, class_type, color, radius = 80, status = "unavailable") {
-        super(x, y, color, id, radius, status);
+    constructor(x, y, id, class_type, color, radius = 80) {
+        super(x, y, color, id, radius);
         this.class_type = class_type;
     }
 
@@ -51,7 +46,6 @@ class Table extends Furniture {
         var x = 1.2*this.x;
 
         var y = this.y;
-        // identify coordinates for 1 seat and cos for shift
 
         for (let i = 0; i < seats_number; i++) {
             var seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
@@ -66,24 +60,10 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, color = "#FF0000", radius = 30, status = "available") {
-        super(x, y, color, id, radius, status);
+    constructor(x, y, id, price, color = "#FF0000", radius = 30) {
+        super(x, y, color, id, radius);
         this.price = price;
         this.raphael = null;
-    }
-
-    mouseover() {
-        this.raphael.attr("opacity", 1);
-    }
-
-    mouseout() {
-        this.raphael.attr("opacity", .4);
-    }
-
-    click() {
-        {
-        }
-
     }
 }
 
