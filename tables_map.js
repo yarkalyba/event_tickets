@@ -1,5 +1,5 @@
-// File: tables_map.js
-// Module representing location of seats and chairs on the map
+// File: table_map.js
+// Module representing of seats and chairs on the map
 
 const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
 const NUM_SEATS_1 = 6, NUM_SEATS_2 = 7;
@@ -11,18 +11,23 @@ const tables_info = {
 };
 
 class Furniture {
-    constructor(x, y, color, id, radius) {
+    constructor(x, y, color, id, radius, status) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.id = id;
         this.radius = radius;
+        this._status = status;
+    }
+
+    get status() {
+        return this._status
     }
 }
 
 class Table extends Furniture {
-    constructor(x, y, id, class_type, color, radius = 80) {
-        super(x, y, color, id, radius);
+    constructor(x, y, id, class_type, color, radius = 80, status = "unavailable") {
+        super(x, y, color, id, radius, status);
         this.class_type = class_type;
     }
 
@@ -43,13 +48,14 @@ class Table extends Furniture {
             this.y * this.radius, this.radius).attr({stroke: "none", fill: this.color, opacity: .4});
 
         // radius of first seat is counted as Table.x + 2*Table.radius
-        var x = 1.2*this.x;
+        let x = 1.2 * this.x;
 
-        var y = this.y;
+        let y = this.y;
+        // identify coordinates for 1 seat and cos for shift
 
         for (let i = 0; i < seats_number; i++) {
-            var seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
-            var radius_coef = this.radius/seat.radius;
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0]);
+            const radius_coef = this.radius / seat.radius;
             seat.raphael = paper.circle(seat.x*radius_coef*seat.radius,
                 seat.y*radius_coef*seat.radius, seat.radius).attr({stroke: "none", fill: this.color, opacity: .4});
             let points = this.find_point(x, y, alpha);
@@ -60,10 +66,18 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, color = "#FF0000", radius = 30) {
-        super(x, y, color, id, radius);
+    constructor(x, y, id, price, color = "#FF0000", radius = 30, status = "available") {
+        super(x, y, color, id, radius, status);
         this.price = price;
         this.raphael = null;
+    }
+
+    mouseover() {
+        this.raphael.attr("opacity", 1);
+    }
+
+    mouseout() {
+        this.raphael.attr("opacity", .4);
     }
 }
 
