@@ -15,7 +15,7 @@ window.onload = function () {
         var x = seatObj.x * 2.5 * radius,
             y = seatObj.y * 2.5 * radius;
 
-        var seat = paper.circle(x, y, radius).attr({stroke: "none", fill: "#f00", opacity: .4, });
+        var seat = paper.circle(x, y, radius).attr({stroke: "none", fill: "#f00", opacity: .4});
 
         seat.mouseover(function () {
             this.attr("opacity", 1);
