@@ -26,7 +26,7 @@ class Furniture {
 }
 
 class Table extends Furniture {
-    constructor(x, y, id, class_type, color, radius = 25, status = "unavailable") {
+    constructor(x, y, id, class_type, color, radius = 80, status = "unavailable") {
         super(x, y, color, id, radius, status);
         this.class_type = class_type;
     }
@@ -56,8 +56,9 @@ class Table extends Furniture {
             //alert(x);
             //alert(y);
             var seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
-            seat.raphael = paper.circle(seat.x*2.5*seat.radius,
-                seat.y*2.5*seat.radius, seat.radius).attr({stroke: "none", fill: this.color, opacity: .4});
+            var radius_coef = this.radius/seat.radius;
+            seat.raphael = paper.circle(seat.x*radius_coef*seat.radius,
+                seat.y*radius_coef*seat.radius, seat.radius).attr({stroke: "none", fill: this.color, opacity: .4});
             let points = this.find_point(x, y, alpha);
             x = points[0];
             y = points[1];
