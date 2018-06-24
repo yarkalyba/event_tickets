@@ -102,19 +102,18 @@ class Seat extends Furniture {
             let ul = document.getElementById("selected-seats");
             let li = document.createElement("li");
 
-            li.appendChild(document.createTextNode('Table '+this.table_id+' seat ' + this.id));
+            li.appendChild(document.createTextNode('Table ' + this.table_id + ' seat ' + this.id));
             li.setAttribute("id", this.table_id + '_' + this.id);
             ul.appendChild(li);
 
             this.available = false;
 
             // changing total price
-            let total = parseFloat(document.getElementById('total'));
-            document.getElementById('total').innerHTML = "Total: " + parseFloat(total) + this.price;
+            let total = document.getElementById('total').innerHTML;
+            document.getElementById('total').innerHTML = parseFloat(total) + this.price;
 
             // changing amount of selected seats
             let num_selected = document.getElementById('counter').innerHTML;
-            alert(num_selected);
             document.getElementById('counter').innerHTML = parseInt(num_selected) + 1
 
 
@@ -123,10 +122,14 @@ class Seat extends Furniture {
             this.available = true;
             let li_id = this.table_id.toString() + '_' + this.id.toString();
             let li = document.getElementById(li_id);
-            li.parentNode.removeChild(li)
+            li.parentNode.removeChild(li);
 
+            // changing total price
+            let total = document.getElementById('total').innerHTML;
+            document.getElementById('total').innerHTML = parseFloat(total) - this.price;
+
+            // changing amount of selected seats
             let num_selected = document.getElementById('counter').innerHTML;
-            alert(num_selected);
             document.getElementById('counter').innerHTML = parseInt(num_selected) - 1
         }
     }
