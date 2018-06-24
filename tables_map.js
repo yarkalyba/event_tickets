@@ -33,6 +33,7 @@ class Table extends Furniture {
             y1 = this.y + rx * s + ry * c;
         return [x1, y1]
     }
+
     draw_seats(seats_number, paper) {
         //draw the table
         let table = paper.circle(this.x * this.radius, this.y * this.radius, this.radius);
@@ -46,13 +47,19 @@ class Table extends Furniture {
 
         for (let i = 0; i < seats_number; i++) {
 
-            const seat = new Seat(x, y, i+1, tables_info[this.class_type][0]);
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id);
             const radius_coef = this.radius / seat.radius;
 
             let raphi = seat.initialize_raphael(paper, radius_coef);
-            raphi.mouseover(function() {seat.mouse_over()});
-            raphi.mouseout(function() {seat.mouse_out()});
-            raphi.click(function() {seat.click_on()});
+            raphi.mouseover(function () {
+                seat.mouse_over()
+            });
+            raphi.mouseout(function () {
+                seat.mouse_out()
+            });
+            raphi.click(function () {
+                seat.click_on()
+            });
 
             let points = this.find_point(x, y, alpha);
             x = points[0];
@@ -62,9 +69,10 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, color = "#988e41", radius = 6) {
+    constructor(x, y, id, price, table_id, color = "#988e41", radius = 6) {
         super(x, y, color, id, radius);
         this.price = price;
+        this.table_id = table_id;
         this.raphael = null;
         this.available = true;
     }
@@ -78,9 +86,11 @@ class Seat extends Furniture {
     mouse_over() {
         this.raphael.attr("opacity", .4);
     }
+
     mouse_out() {
         this.raphael.attr("opacity", .8);
     }
+
     click_on() {
         if (this.raphael.attrs.fill === "#4B4D5A") {
             this.raphael.attr("fill", this.color);
@@ -88,15 +98,22 @@ class Seat extends Furniture {
             this.raphael.attr("fill", "#4B4D5A");
         }
         if (this.available === true) {
-            this.available = false;
             let ul = document.getElementById("selected-seats");
             let li = document.createElement("li");
-            li.appendChild(document.createTextNode('Seat #' + this.id));
-            li.setAttribute("id", this.id);
+            let li_id = this.table_id.toString() + '_' + this.id.toString();
+            li.appendChild(document.createTextNode('Table '+this.table_id+' seat ' + this.id));
+            li.setAttribute("id", li_id);
             ul.appendChild(li);
+            this.available = false;
             // let price = parseFloat(document.getElementById('total').value);
             // document.getElementById('total').value = parseFloat(price) + this.price;
             // alert(document.getElementById('total').value);
+        }
+        else {
+            this.available = true;
+            let li_id = this.table_id.toString() + '_' + this.id.toString();
+            let li = document.getElementById(li_id);
+            li.parentNode.removeChild(li)
         }
     }
 }
