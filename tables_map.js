@@ -75,6 +75,9 @@ class Seat extends Furniture {
         this.table_id = table_id;
         this.raphael = null;
         this.available = true;
+
+        let self = this;
+        this.myHandler = function() {self.cancel()};
     }
 
     initialize_raphael(paper, coefficient) {
@@ -93,16 +96,27 @@ class Seat extends Furniture {
 
     click_on() {
         if (this.available === true) {
+            this.available = false;
+            this.raphael.attr("fill", "#4B4D5A");
+
             // adding new selected seat to the list
             let ul = document.getElementById("selected-seats");
             let li = document.createElement("li");
+            let b = document.createElement("b");
+            let a = document.createElement("a");
 
-            li.appendChild(document.createTextNode('Table ' + this.table_id + ' seat ' + this.id));
+            li.appendChild(document.createTextNode("Table " + this.table_id + ", seat " + this.id + ": "));
             li.setAttribute("id", this.table_id + '_' + this.id);
-            ul.appendChild(li);
 
-            this.available = false;
-            this.raphael.attr("fill", "#4B4D5A");
+            b.appendChild(document.createTextNode("$" + this.price));
+            li.appendChild(b);
+
+            a.setAttribute("href", "#");
+            a.appendChild(document.createTextNode(" [cancel]"));
+            li.appendChild(a);
+            a.onclick = this.myHandler;
+
+            ul.appendChild(li);
 
             // changing total price
             let total = document.getElementById('total').innerHTML;
@@ -128,6 +142,10 @@ class Seat extends Furniture {
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) - 1
         }
+    }
+    cancel() {
+        this.click_on();
+        return false;
     }
 }
 
