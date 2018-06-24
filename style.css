@@ -1,7 +1,9 @@
 .front-indicator {
-    width: 145px;
+    width: 400px;
     margin: 5px 32px 15px 32px;
     background-color: #f6f6f6;
+    left: 20%;
+    position: absolute;
     color: #adadad;
     text-align: center;
     padding: 3px;
@@ -21,10 +23,12 @@
 
 .booking-details {
     float: left;
-    text-align: left;
+    position:absolute;
+    top: 10%;
+    right: 20%;
+    text-align: center;
     margin-left: 35px;
     font-size: 12px;
-    position: relative;
     height: 401px;
 }
 
