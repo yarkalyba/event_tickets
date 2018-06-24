@@ -98,22 +98,36 @@ class Seat extends Furniture {
             this.raphael.attr("fill", "#4B4D5A");
         }
         if (this.available === true) {
+            // adding new selected seat to the list
             let ul = document.getElementById("selected-seats");
             let li = document.createElement("li");
-            let li_id = this.table_id.toString() + '_' + this.id.toString();
+
             li.appendChild(document.createTextNode('Table '+this.table_id+' seat ' + this.id));
-            li.setAttribute("id", li_id);
+            li.setAttribute("id", this.table_id + '_' + this.id);
             ul.appendChild(li);
+
             this.available = false;
-            // let price = parseFloat(document.getElementById('total').value);
-            // document.getElementById('total').value = parseFloat(price) + this.price;
-            // alert(document.getElementById('total').value);
+
+            // changing total price
+            let total = parseFloat(document.getElementById('total'));
+            document.getElementById('total').innerHTML = "Total: " + parseFloat(total) + this.price;
+
+            // changing amount of selected seats
+            let num_selected = document.getElementById('counter').innerHTML;
+            alert(num_selected);
+            document.getElementById('counter').innerHTML = parseInt(num_selected) + 1
+
+
         }
         else {
             this.available = true;
             let li_id = this.table_id.toString() + '_' + this.id.toString();
             let li = document.getElementById(li_id);
             li.parentNode.removeChild(li)
+
+            let num_selected = document.getElementById('counter').innerHTML;
+            alert(num_selected);
+            document.getElementById('counter').innerHTML = parseInt(num_selected) - 1
         }
     }
 }
