@@ -92,11 +92,6 @@ class Seat extends Furniture {
     }
 
     click_on() {
-        if (this.raphael.attrs.fill === "#4B4D5A") {
-            this.raphael.attr("fill", this.color);
-        } else {
-            this.raphael.attr("fill", "#4B4D5A");
-        }
         if (this.available === true) {
             // adding new selected seat to the list
             let ul = document.getElementById("selected-seats");
@@ -107,6 +102,7 @@ class Seat extends Furniture {
             ul.appendChild(li);
 
             this.available = false;
+            this.raphael.attr("fill", "#4B4D5A");
 
             // changing total price
             let total = document.getElementById('total').innerHTML;
@@ -115,11 +111,11 @@ class Seat extends Furniture {
             // changing amount of selected seats
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) + 1
-
-
         }
         else {
             this.available = true;
+            this.raphael.attr("fill", this.color);
+
             let li_id = this.table_id.toString() + '_' + this.id.toString();
             let li = document.getElementById(li_id);
             li.parentNode.removeChild(li);
@@ -149,10 +145,10 @@ window.onload = function () {
 
     // Creates canvas 500 � 500 at 50, 30
     let paper = Raphael(50, 90, 900, 900);
-    paper.circle(0, 0, 10).attr({"fill": "#FFFF00"});
-    paper.circle(900, 0, 10).attr({"fill": "#FFFF00"});
-    paper.circle(900, 900, 10).attr({"fill": "#FFFF00"});
-    paper.circle(0, 900, 10).attr({"fill": "#FFFF00"});
+    // paper.circle(0, 0, 10).attr({"fill": "#FFFF00"});
+    // paper.circle(900, 0, 10).attr({"fill": "#FFFF00"});
+    // paper.circle(900, 900, 10).attr({"fill": "#FFFF00"});
+    // paper.circle(0, 900, 10).attr({"fill": "#FFFF00"});
 
     for (let i = 0; i < tables.length; i++) {
         let info = tables_info[tables[i].class_type];
