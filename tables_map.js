@@ -136,19 +136,23 @@ class Seat extends Furniture {
 }
 
 window.onload = function () {
-    let tables = [{"x": 8, "y": 22, "class_type": "high_class"},
-        {"x": 20, "y": 10, "class_type": "low_class"},
-        {"x": 28, "y": 20, "class_type": "low_class"},
-        {"x": 30, "y": 5, "class_type": "low_class"},
-        {"x": 43, "y": 10, "class_type": "high_class"},
-        {"x": 10, "y": 5, "class_type": "low_class"},
-        {"x": 15, "y": 35, "class_type": "low_class"},
-        {"x": 30, "y": 35, "class_type": "low_class"},
-        {"x": 43, "y": 25, "class_type": "high_class"},
-        {"x": 50, "y": 33, "class_type": "low_class"}];  //coordinates of tables
+    let tables = [{"x": 10, "y": 5, "class_type": "high_class"},
+        {"x": 10, "y": 20, "class_type": "low_class"},
+        {"x": 10, "y": 35, "class_type": "low_class"},
+        {"x": 40, "y": 5, "class_type": "low_class"},
+        {"x": 40, "y": 20, "class_type": "high_class"},
+        {"x": 40, "y": 35, "class_type": "low_class"},
+        {"x": 20, "y": 12.5, "class_type": "low_class"},
+        {"x": 20, "y": 27.5, "class_type": "low_class"},
+        {"x": 30, "y": 12.5, "class_type": "high_class"},
+        {"x": 30, "y": 27.5, "class_type": "low_class"}];  //coordinates of tables
 
     // Creates canvas 500 � 500 at 50, 30
-    let paper = Raphael(50, 90, 1200, 5000);
+    let paper = Raphael(50, 90, 900, 900);
+    paper.circle(0, 0, 10).attr({"fill": "#FFFF00"});
+    paper.circle(900, 0, 10).attr({"fill": "#FFFF00"});
+    paper.circle(900, 900, 10).attr({"fill": "#FFFF00"});
+    paper.circle(0, 900, 10).attr({"fill": "#FFFF00"});
 
     for (let i = 0; i < tables.length; i++) {
         let info = tables_info[tables[i].class_type];
