@@ -46,8 +46,12 @@ class Table extends Furniture {
         let y = this.y;
 
         for (let i = 0; i < seats_number; i++) {
+            let available = false;
 
-            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id);
+            if (i%2 === 0) {
+                available = true;}
+
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id, available);
             const radius_coef = this.radius / seat.radius;
 
             let raphi = seat.initialize_raphael(paper, radius_coef);
@@ -69,20 +73,24 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, table_id, color = "#988e41", radius = 6) {
+    constructor(x, y, id, price, table_id, available=true, color = "#988e41", radius = 6) {
         super(x, y, color, id, radius);
         this.price = price;
         this.table_id = table_id;
         this.raphael = null;
-        this.available = true;
+        this.available = available;
 
         let self = this;
         this.myHandler = function() {self.cancel()};
     }
 
     initialize_raphael(paper, coefficient) {
+        let color = this.color;
+        if (this.available === false) {
+            color = "#000000"
+        }
         this.raphael = paper.circle(this.x * coefficient * this.radius, this.y * coefficient * this.radius, this.radius);
-        this.raphael.attr({stroke: "none", fill: this.color, opacity: 0.8});
+        this.raphael.attr({stroke: "none", fill: color, opacity: 0.8});
         return this.raphael;
     }
 
@@ -96,7 +104,7 @@ class Seat extends Furniture {
 
     click_on() {
         if (this.available === true) {
-            this.available = false;
+            this.available = null;  // as selected
             this.raphael.attr("fill", "#4B4D5A");
 
             // adding new selected seat to the list
@@ -126,7 +134,7 @@ class Seat extends Furniture {
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) + 1
         }
-        else {
+        else if (this.available === null){
             this.available = true;
             this.raphael.attr("fill", this.color);
 
@@ -142,6 +150,7 @@ class Seat extends Furniture {
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) - 1
         }
+        // else {        }
     }
     cancel() {
         this.click_on();
