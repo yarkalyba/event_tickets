@@ -1,5 +1,5 @@
 // File: tables_map.js
-// Module representing of seats and chairs on the map
+// Module representing location of the seats and tables on the map
 
 const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
 const NUM_SEATS_1 = 6, NUM_SEATS_2 = 10;
@@ -40,14 +40,14 @@ class Table extends Furniture {
         table.attr({stroke: "none", fill: this.color, opacity: 1});
 
         // assert that 0 < seats number < 12
-        let alpha = Math.PI * 2 / seats_number;
-        let coef = 10;
+        let alpha = Math.PI * 2 / seats_number;  // the turning angle for seats
+        let coef = 10;  // coefficient of length between seats and tables
         let x = (1 + 0.2 * coef / this.x) * this.x;
         let y = this.y;
 
         for (let i = 0; i < seats_number; i++) {
-            let available = false;
 
+            let available = false;
             if (i%2 === 0) {
                 available = true;}
 
@@ -95,7 +95,11 @@ class Seat extends Furniture {
     }
 
     mouse_over() {
-        this.raphael.attr("opacity", .4);
+        if (this.available !== false) {
+            this.raphael.attr("opacity", .4);
+        } else {
+            this.raphael.attr("cursor", "not-allowed");
+        }
     }
 
     mouse_out() {
@@ -150,7 +154,8 @@ class Seat extends Furniture {
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) - 1
         }
-        // else {        }
+        else {
+        }
     }
     cancel() {
         this.click_on();
