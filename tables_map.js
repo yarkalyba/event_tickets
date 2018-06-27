@@ -1,11 +1,11 @@
 // File: tables_map.js
 // Module representing location of the seats and tables on the map
 
-const PRICE_1 = 100, PRICE_2 = 50, PRICE_3 = 10, PRICE_4 = 5;
-const NUM_SEATS_1 = 6, NUM_SEATS_2 = 10;
+const PRICE_1 = 200, PRICE_2 = 100;
+const NUM_SEATS_1 = 10;
 const tables_info = {
     "high_class": [PRICE_1, "#A3C0C4"],
-    "low_class": [PRICE_3, "#4D1D29"]
+    "low_class": [PRICE_2, "#4D1D29"]
 };
 
 class Furniture {
@@ -47,6 +47,7 @@ class Table extends Furniture {
 
         for (let i = 0; i < seats_number; i++) {
 
+            // define some seats as unavailable
             let available = false;
             if (i%2 === 0) {
                 available = true;}
@@ -186,6 +187,6 @@ window.onload = function () {
         let info = tables_info[tables[i].class_type];
 
         let table = new Table(tables[i].x, tables[i].y, i + 1, tables[i].class_type, info[1]);
-        table.draw_seats(NUM_SEATS_2, paper);
+        table.draw_seats(NUM_SEATS_1, paper);
     }
 };
