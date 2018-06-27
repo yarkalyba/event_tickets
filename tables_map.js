@@ -38,6 +38,7 @@ class Table extends Furniture {
         //draw the table
         let table = paper.circle(this.x * this.radius, this.y * this.radius, this.radius);
         table.attr({stroke: "none", fill: this.color, opacity: 1});
+        paper.text(this.x * this.radius, this.y * this.radius, this.id);
 
         // assert that 0 < seats number < 12
         let alpha = Math.PI * 2 / seats_number;  // the turning angle for seats
@@ -47,7 +48,12 @@ class Table extends Furniture {
 
         for (let i = 0; i < seats_number; i++) {
 
-            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id);
+            let available = true;
+            if (i === 2){
+                available = false;
+            }
+
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id, available);
             const radius_coef = this.radius / seat.radius;
 
             seat.initialize_raphael(paper, radius_coef);
@@ -61,6 +67,9 @@ class Table extends Furniture {
 
 class Seat extends Furniture {
     constructor(x, y, id, price, table_id, available=true, color = "#800000", radius = 6) {
+        if (available === false) {
+            color = "#000"
+        }
         super(x, y, color, id, radius);
         this.price = price;
         this.table_id = table_id;
@@ -75,12 +84,9 @@ class Seat extends Furniture {
     }
 
     initialize_raphael(paper, coefficient) {
-        let color = this.color;
-        if (this.available === false) {
-            color = "#696969"
-        }
         this.raphael = paper.circle(this.x * coefficient * this.radius, this.y * coefficient * this.radius, this.radius);
-        this.raphael.attr({stroke: "none", fill: color, opacity: 0.8});
+        this.raphael.attr({stroke: "none", fill: this.color, opacity: 0.8});
+
         this.raphael.mouseover(this._mouseover);
         this.raphael.mouseout(this._mouseout);
         this.raphael.click(this._click);
