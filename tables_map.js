@@ -49,7 +49,7 @@ class Table extends Furniture {
         for (let i = 0; i < seats_number; i++) {
 
             let available = true;
-            if (i === 2){
+            if (i === 2) {
                 available = false;
             }
 
@@ -66,7 +66,7 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, table_id, available=true, color = "#800000", radius = 6) {
+    constructor(x, y, id, price, table_id, available = true, color = "#800000", radius = 6) {
         if (available === false) {
             color = "#000"
         }
@@ -77,10 +77,18 @@ class Seat extends Furniture {
         this.available = available;
 
         let self = this;
-        this._cancel = function() {self.cancel()};
-        this._mouseover = function() {self.mouse_over()};
-        this._mouseout = function() {self.mouse_out()};
-        this._click = function() {self.click_on()}
+        this._cancel = function () {
+            self.cancel()
+        };
+        this._mouseover = function () {
+            self.mouse_over()
+        };
+        this._mouseout = function () {
+            self.mouse_out()
+        };
+        this._click = function () {
+            self.click_on()
+        }
     }
 
     initialize_raphael(paper, coefficient) {
@@ -136,7 +144,7 @@ class Seat extends Furniture {
             let num_selected = document.getElementById('counter').innerHTML;
             document.getElementById('counter').innerHTML = parseInt(num_selected) + 1
         }
-        else if (this.available === null){
+        else if (this.available === null) {
             this.available = true;
             this.raphael.attr("fill", this.color);
 
@@ -155,6 +163,7 @@ class Seat extends Furniture {
         else {
         }
     }
+
     cancel() {
         this.click_on();
         return false;
