@@ -50,16 +50,7 @@ class Table extends Furniture {
             const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id);
             const radius_coef = this.radius / seat.radius;
 
-            let raphi = seat.initialize_raphael(paper, radius_coef);
-            raphi.mouseover(function () {
-                seat.mouse_over()
-            });
-            raphi.mouseout(function () {
-                seat.mouse_out()
-            });
-            raphi.click(function () {
-                seat.click_on()
-            });
+            seat.initialize_raphael(paper, radius_coef);
 
             let points = this.find_point(x, y, alpha);
             x = points[0];
@@ -77,7 +68,10 @@ class Seat extends Furniture {
         this.available = available;
 
         let self = this;
-        this.myHandler = function() {self.cancel()};
+        this._cancel = function() {self.cancel()};
+        this._mouseover = function() {self.mouse_over()};
+        this._mouseout = function() {self.mouse_out()};
+        this._click = function() {self.click_on()}
     }
 
     initialize_raphael(paper, coefficient) {
@@ -87,7 +81,9 @@ class Seat extends Furniture {
         }
         this.raphael = paper.circle(this.x * coefficient * this.radius, this.y * coefficient * this.radius, this.radius);
         this.raphael.attr({stroke: "none", fill: color, opacity: 0.8});
-        return this.raphael;
+        this.raphael.mouseover(this._mouseover);
+        this.raphael.mouseout(this._mouseout);
+        this.raphael.click(this._click);
     }
 
     mouse_over() {
@@ -122,7 +118,7 @@ class Seat extends Furniture {
             a.setAttribute("href", "#");
             a.appendChild(document.createTextNode(" [cancel]"));
             li.appendChild(a);
-            a.onclick = this.myHandler;
+            a.onclick = this._cancel;
 
             ul.appendChild(li);
 
