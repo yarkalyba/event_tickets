@@ -4,8 +4,8 @@
 const PRICE_1 = 200, PRICE_2 = 100;
 const NUM_SEATS_1 = 10;
 const tables_info = {
-    "high_class": [PRICE_1, "#A3C0C4"],
-    "low_class": [PRICE_2, "#4D1D29"]
+    "high_class": [PRICE_1, "#778899"],
+    "low_class": [PRICE_2, "#696969"]
 };
 
 class Furniture {
@@ -47,12 +47,7 @@ class Table extends Furniture {
 
         for (let i = 0; i < seats_number; i++) {
 
-            // define some seats as unavailable
-            let available = false;
-            if (i%2 === 0) {
-                available = true;}
-
-            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id, available);
+            const seat = new Seat(x, y, i + 1, tables_info[this.class_type][0], this.id);
             const radius_coef = this.radius / seat.radius;
 
             let raphi = seat.initialize_raphael(paper, radius_coef);
@@ -74,7 +69,7 @@ class Table extends Furniture {
 }
 
 class Seat extends Furniture {
-    constructor(x, y, id, price, table_id, available=true, color = "#988e41", radius = 6) {
+    constructor(x, y, id, price, table_id, available=true, color = "#800000", radius = 6) {
         super(x, y, color, id, radius);
         this.price = price;
         this.table_id = table_id;
@@ -88,7 +83,7 @@ class Seat extends Furniture {
     initialize_raphael(paper, coefficient) {
         let color = this.color;
         if (this.available === false) {
-            color = "#000000"
+            color = "#696969"
         }
         this.raphael = paper.circle(this.x * coefficient * this.radius, this.y * coefficient * this.radius, this.radius);
         this.raphael.attr({stroke: "none", fill: color, opacity: 0.8});

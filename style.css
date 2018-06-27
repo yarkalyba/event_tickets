@@ -9,6 +9,9 @@
     padding: 3px;
     border-radius: 5px;
 }
+body {
+    background-color: #DADDD5;
+}
 
 .wrapper {
     width: 100px;
