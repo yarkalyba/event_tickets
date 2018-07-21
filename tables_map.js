@@ -171,19 +171,37 @@ class Seat extends Furniture {
 }
 
 window.onload = function () {
-    let tables = [{"x": 10, "y": 5, "class_type": "high_class"},
-        {"x": 10, "y": 20, "class_type": "low_class"},
-        {"x": 10, "y": 35, "class_type": "low_class"},
-        {"x": 40, "y": 5, "class_type": "low_class"},
-        {"x": 40, "y": 20, "class_type": "high_class"},
-        {"x": 40, "y": 35, "class_type": "low_class"},
-        {"x": 20, "y": 12.5, "class_type": "low_class"},
-        {"x": 20, "y": 27.5, "class_type": "low_class"},
-        {"x": 30, "y": 12.5, "class_type": "high_class"},
-        {"x": 30, "y": 27.5, "class_type": "low_class"}];  //coordinates of tables
+    let tables = [{"x": 3, "y": 5, "class_type": "high_class"},
+        {"x": 9, "y": 5, "class_type": "high_class"},
+        {"x": 15, "y": 5, "class_type": "high_class"},
+        {"x": 21, "y": 5, "class_type": "high_class"},
+        {"x": 27, "y": 5, "class_type": "high_class"},
+        {"x": 33, "y": 5, "class_type": "high_class"},
+        {"x": 39, "y": 5, "class_type": "high_class"},
+        {"x": 45, "y": 5, "class_type": "high_class"},
+        {"x": 51, "y": 5, "class_type": "high_class"},
+
+        {"x": 6, "y": 11, "class_type": "high_class"},
+        {"x": 12, "y": 11, "class_type": "high_class"},
+        {"x": 18, "y": 11, "class_type": "high_class"},
+        {"x": 24, "y": 11, "class_type": "high_class"},
+        {"x": 30, "y": 11, "class_type": "high_class"},
+        {"x": 36, "y": 11, "class_type": "high_class"},
+        {"x": 42, "y": 11, "class_type": "high_class"},
+        {"x": 48, "y": 11, "class_type": "high_class"},
+
+        {"x": 3, "y": 17, "class_type": "high_class"},
+        {"x": 9, "y": 17, "class_type": "high_class"},
+        {"x": 15, "y": 17, "class_type": "high_class"},
+        {"x": 21, "y": 17, "class_type": "high_class"},
+        {"x": 27, "y": 17, "class_type": "high_class"},
+        {"x": 33, "y": 17, "class_type": "high_class"},
+        {"x": 39, "y": 17, "class_type": "high_class"},
+        {"x": 45, "y": 17, "class_type": "high_class"},
+        {"x": 51, "y": 17, "class_type": "high_class"}];  //coordinates of tables];  //coordinates of tables
 
     // Creates canvas 500 � 500 at 50, 30
-    let paper = Raphael(50, 90, 900, 900);
+    let paper = Raphael(50, 90, 1200, 1200);
     // paper.circle(0, 0, 10).attr({"fill": "#FFFF00"});
     // paper.circle(900, 0, 10).attr({"fill": "#FFFF00"});
     // paper.circle(900, 900, 10).attr({"fill": "#FFFF00"});
